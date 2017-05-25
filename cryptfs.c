@@ -2277,6 +2277,9 @@ int cryptfs_revert_ext_volume(const char* label) {
 
 int cryptfs_crypto_complete(void)
 {
+#if 1
+  return do_crypto_complete("/data");
+#else
   int mdtp_activated = fs_mgr_is_mdtp_activated();
   int crypto_state = do_crypto_complete("/data");
 
@@ -2293,6 +2296,7 @@ int cryptfs_crypto_complete(void)
 
   /* mdtp is not activated, return the crypto state only */
   return crypto_state;
+#endif
 }
 
 int check_unmounted_and_get_ftr(struct crypt_mnt_ftr* crypt_ftr)
